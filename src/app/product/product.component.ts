@@ -41,23 +41,24 @@ export class ProductComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.isEdit){
+    if (this.isEdit) {
       this.getProduct(this.productId);
       this.btnText = "Edit";
       this.modalTitle = "Edit Product";
-    }else{
-      this.productId =0;
+    }
+    else if (changes['productId'].currentValue == 0) {
+      this.productId = 0;
+      this.btnText = "Add";
+      this.modalTitle = "Add Product";
+      this.productForm.reset();
+    }
+    else {
+      this.productId = 0;
       this.btnText = "Add";
       this.modalTitle = "Add Product";
     }
-    
-
   }
   close() {
-    if(this.isEdit){
-      this.productForm.reset();
-    }
-    $("#productModal").modal('hide');
   }
 
   ngOnInit(): void {
@@ -116,7 +117,6 @@ export class ProductComponent implements OnInit, OnChanges {
         this.sub = this.apiService.addProduct(this.productForm.value).subscribe(
           (res) => {
             console.log('Product successfully added!');
-            this.productForm.reset();
             $("#productModal").modal('hide');
             this.reloadEvent.emit();
           }, (error) => {
@@ -126,9 +126,6 @@ export class ProductComponent implements OnInit, OnChanges {
         this.sub = this.apiService.updateProduct(this.productId, this.productForm.value)
           .subscribe(res => {
             console.log('Product updated successfully!')
-             this.productForm.reset();
-             this.isEdit=false;
-             this.productId=0;
             $("#productModal").modal('hide');
             this.reloadEvent.emit();
 

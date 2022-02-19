@@ -56,6 +56,7 @@ export class ProductListComponent implements OnInit {
   showAddOvly(num:any){
     if(num==0){
       this.isEdit=false;
+      this.productId = 0;
       $("#productModal").modal('show');
     }
   }
