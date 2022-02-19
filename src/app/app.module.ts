@@ -7,9 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ProductEditComponent } from './product-edit/product-edit.component';
-import { ProductAddComponent } from './product-add/product-add.component';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     HomeComponent,
     ProductListComponent,
-    ProductEditComponent,
-    ProductAddComponent
+    ProductComponent
   ],
   imports: [
     BrowserModule,

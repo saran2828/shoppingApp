@@ -1,5 +1,4 @@
 import { InventoryService } from './../services/inventory.service';
-import { Product } from './../modal/product';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 declare var $: any ;
@@ -12,14 +11,12 @@ declare var $: any ;
 export class ProductListComponent implements OnInit {
 
   products: any = [];
-  action :number=0;
-  modalTitle='Add Product';
+  isEdit = false;
   productId=0;
 
   constructor(private apiService: InventoryService,
     private router: Router,
     private ngZone: NgZone) {
-    console.log(this.router);
   }
 
   showConfirmation(id:number){
@@ -45,13 +42,12 @@ export class ProductListComponent implements OnInit {
   showFilteredList(data: any) {
     this.products = data;
   }
-  reloadList(){
+  reloadList(event:any){
     this.ngOnInit();
   }
 
   showEditOvly(id:any){
-    this.action=1;
-    this.modalTitle='Edit Product';
+    this.isEdit=true;
     this.productId = id;
     //fetch data for the product
     $("#productModal").modal('show');
@@ -59,8 +55,7 @@ export class ProductListComponent implements OnInit {
 
   showAddOvly(num:any){
     if(num==0){
-      this.action=0;
-      this.modalTitle='Add Product';
+      this.isEdit=false;
       $("#productModal").modal('show');
     }
   }

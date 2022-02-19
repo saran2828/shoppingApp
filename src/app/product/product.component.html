@@ -1,0 +1,85 @@
+productid---{{this.productId}}-----Edit--{{isEdit}}
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalTitle">{{modalTitle}}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal"  (click)="close()"  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-sm">
+                <form [formGroup]="productForm" #pForm="ngForm">
+                    <div [hidden]="pForm.submitted">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                                <div *ngIf="name.errors?.['required']">
+                                    Name is required.
+                                </div>
+                            </div>
+                        </div>
+            
+            
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" class="form-control" formControlName="description">
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="custom-select form-control" formControlName="category">
+                                <option value="">Choose Category</option>
+                                <option *ngFor="let category of categories" value="{{category}}">{{category}}
+                                </option>
+                            </select>
+                            <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+                                <div *ngIf="category.errors?.['required']">
+                                    Category is required.
+                                </div>
+                            </div>
+                        </div>
+            
+            
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" class="form-control" formControlName="quantity" required>
+                            <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+                                <div *ngIf="quantity.errors?.['required']">
+                                    Quantity is required.
+                                </div>
+                                <div *ngIf="quantity.errors?.['max']">
+                                    Maximum 100 quantity allowed.
+                                </div>
+                                <div *ngIf="quantity.errors?.['min']">
+                                    Minimum 1 quantity allowed.
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" class="form-control" formControlName="price" required>
+                            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+                                <div *ngIf="price.errors?.['required']">
+                                    Price is required.
+                                </div>
+                            </div>
+                        </div>
+            
+            
+            
+                        <div class="form-group modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="onSubmit(isEdit)"
+                                [disabled]="productForm.invalid">{{btnText}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
